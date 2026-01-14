@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour
     public GameObject runEffectRight;
     public GameObject runEffectLeft;
     private bool isFacingRight = true;
+    public float moveSpeed = 5f;
+    public float accel = 30f;
+    public float deadZone = 0.05f;
 
     // スコア関連変数
     private float elapsedTime = 0f;
@@ -50,7 +53,7 @@ public class PlayerController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         UpdateScore();
         MovePlayer();
@@ -72,40 +75,47 @@ public class PlayerController : MonoBehaviour
     // プレイヤー移動処理
     void MovePlayer()
     {
-        bool isThrusting = Mouse.current.leftButton.isPressed;
 
-        if (isThrusting)
-        {
-            // マウス位置を計算
-            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.value);
-            Vector2 direction = (mousePos - transform.position).normalized;
+        // WASD入力
+        float x = 0f;
+        float y = 0f;
 
-            // プレイヤーをマウス方向に向ける
-            // transform.up = direction;
-            rb.AddForce(direction * thrustForce);
+        var kb = Keyboard.current;
+        if (kb == null) return;
 
-            // 最高速度の制限
-            if (rb.linearVelocity.magnitude > maxSpeed)
-            {
-                rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
-            }
+        if (kb.aKey.isPressed) x -= 1f;
+        if (kb.dKey.isPressed) x += 1f;
+        if (kb.sKey.isPressed) y -= 1f;
+        if (kb.wKey.isPressed) y += 1f;
 
-            // 左右判定
-            if (Mathf.Abs(direction.x) > 0.01f)
-            {
-                isFacingRight = direction.x > 0f;
-            }
+        Vector2 input = new Vector2(x, y);
+        if (input.sqrMagnitude > 1f) input.Normalize();
 
-            // エフェクトの表示切替
-            if (runEffectRight) runEffectRight.SetActive(!isFacingRight);
-            if (runEffectLeft) runEffectLeft.SetActive(isFacingRight);
-        }
-        else
-        {
-            // 推していない時はエフェクトを非表示
-            if (runEffectRight) runEffectRight.SetActive(false);
-            if (runEffectLeft) runEffectLeft.SetActive(false);
-        }
+        // 目標速度
+        Vector2 targetVel = input * moveSpeed;
+
+        // 現在速度を目標へじわっと寄せる
+        rb.linearVelocity = Vector2.MoveTowards(
+            rb.linearVelocity,
+            targetVel,
+            accel * Time.fixedDeltaTime
+        );
+
+        // 走行エフェクト（移動ベクトルで左右判定）
+        Vector2 v = rb.linearVelocity;
+
+        if (Mathf.Abs(v.x) > deadZone)
+            isFacingRight = v.x > 0f;
+
+        bool isMoving = v.magnitude > deadZone;
+
+        // エフェクトの表示切替
+        if (runEffectRight) runEffectRight.SetActive(!isFacingRight && isMoving);
+        if (runEffectLeft) runEffectLeft.SetActive(isFacingRight && isMoving);
+
+        // 推していない時はエフェクトを非表示
+        if (runEffectRight) runEffectRight.SetActive(false);
+        if (runEffectLeft) runEffectLeft.SetActive(false);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
