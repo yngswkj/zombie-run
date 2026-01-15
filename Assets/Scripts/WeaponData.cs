@@ -12,7 +12,7 @@ public class WeaponData : ScriptableObject
     [Header("Fire")]
     public float fireRate = 6f;           // 1秒あたりの発射数
     public int projectilesPerShot = 1;    // 1回の発射で出る弾丸の数
-    public float spreadAngleDeg = 0f;      // 弾丸の拡散角度（度）
+    public float spreadAngleDeg = 0f;     // 弾丸の拡散角度（度）
 
     [Header("Burst (optional)")]
     public int burstCount = 1;            // バースト発射の弾丸数

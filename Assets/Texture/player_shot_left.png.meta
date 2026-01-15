@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b665347f48e85db4da8cdebe62fac900
+guid: 0cdae0dd567386247a517d2a6e508071
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5121218635852748920
-    second: zonbie_0
+      213: 2273611465018848811
+    second: player_shot_left_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: zonbie_0
+      name: player_shot_left_0
       rect:
         serializedVersion: 2
-        x: 1
+        x: 0
         y: 0
-        width: 649
-        height: 650
+        width: 436
+        height: 479
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 887e2e8b8c6cde8b0800000000000000
-      internalID: -5121218635852748920
+      spriteID: b2634b1d49d7d8f10800000000000000
+      internalID: 2273611465018848811
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      zonbie_0: -5121218635852748920
+      player_shot_left_0: 2273611465018848811
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -11,31 +11,20 @@ public class Weapon : MonoBehaviour
     float nextFireTime;
     Coroutine burstRoutine;
 
+    // 初期化
     void Awake()
     {
         if (owner == null) owner = transform; // WeaponがPlayerに付いてるならこれでOK
     }
 
+    // 発射処理
     public void TryFire(Vector3 targetWorldPos)
     {
-        Debug.Log($"[Weapon] TryFire called. data={(data ? data.name : "null")} firePoint={(firePoint ? firePoint.name : "null")}");
 
-        if (data == null || firePoint == null)
-        {
-            Debug.LogWarning("[Weapon] data or firePoint is null -> return");
-            return;
-        }
-
-        if (data.projectilePrefab == null)
-        {
-            Debug.LogWarning("[Weapon] projectilePrefab is null -> return");
-            return;
-        }
-
+        // 発射レート制限
         float interval = 1f / Mathf.Max(0.01f, data.fireRate);
         if (Time.time < nextFireTime)
         {
-            // Debug.Log($"[Weapon] cooldown -> return");
             return;
         }
         nextFireTime = Time.time + interval;
@@ -60,41 +49,44 @@ public class Weapon : MonoBehaviour
         burstRoutine = null;
     }
 
+    // 弾丸を1回発射
     void FireOnce(Vector3 targetWorldPos)
     {
-        // 狙う方向
+
+        // 狙う方向を計算
         Vector2 baseDir = ((Vector2)targetWorldPos - (Vector2)firePoint.position).normalized;
         if (baseDir.sqrMagnitude < 0.0001f) baseDir = Vector2.up;
 
+        // 弾丸を複数発射（拡散対応）
         int pellets = Mathf.Max(1, data.projectilesPerShot);
 
+        // 弾丸発射ループ
         for (int i = 0; i < pellets; i++)
         {
             float half = data.spreadAngleDeg * 0.5f;
             float angle = (pellets == 1) ? 0f : Random.Range(-half, half);
             Vector2 dir = Rotate(baseDir, angle);
 
-            // ★確実にシーンに生成
+            // 弾丸生成
             GameObject go = Instantiate(
                 data.projectilePrefab.gameObject,
                 firePoint.position,
                 Quaternion.identity
             );
 
-            Debug.Log($"[Weapon] Spawned projectile: {go.name} at {go.transform.position}");
-
+            // 初期化
             Projectile p = go.GetComponent<Projectile>();
             if (p == null)
             {
-                Debug.LogError("[Weapon] Projectile component not found on prefab!");
                 Destroy(go);
                 return;
             }
 
-            p.Init(dir, data.projectileSpeed, data.damage, owner, ownerTag, data.projectileLifeTime);
+            p.Init(dir, data.projectileSpeed, owner, ownerTag, data.projectileLifeTime);
         }
     }
 
+    // 2Dベクトルを指定角度回転させる
     static Vector2 Rotate(Vector2 v, float degrees)
     {
         float rad = degrees * Mathf.Deg2Rad;

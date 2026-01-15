@@ -7,7 +7,8 @@ public class Projectile : MonoBehaviour
     Transform owner;
     string ownerTag;
 
-    public void Init(Vector2 direction, float speed, float damage, Transform owner, string ownerTag, float lifeTime)
+    // 初期化処理
+    public void Init(Vector2 direction, float speed, Transform owner, string ownerTag, float lifeTime)
     {
         this.owner = owner;
         this.ownerTag = ownerTag;
@@ -18,14 +19,11 @@ public class Projectile : MonoBehaviour
         Destroy(gameObject, lifeTime);
     }
 
+    // 衝突処理
     void OnTriggerEnter2D(Collider2D other)
     {
-        // ★プレイヤー配下（PlayerBody等）に当たったら無視
+        //  プレイヤー配下（PlayerBody等）に当たったら無視
         if (owner != null && other.transform.IsChildOf(owner)) return;
-
-        // ★タグでも無視（保険）
-        if (!string.IsNullOrEmpty(ownerTag) && other.CompareTag(ownerTag)) return;
-
         Destroy(gameObject);
     }
 }

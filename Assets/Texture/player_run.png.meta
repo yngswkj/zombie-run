@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 00d0b0fe048295046a7c354f633c312a
+guid: 1d518f392d5e31844aed5ac3379149a8
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -889739676950766307
-    second: player2_0
+      213: -938658608654533949
+    second: player_run_0
+  - first:
+      213: -4148961355465977301
+    second: player_run_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +54,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 500
+  spritePixelsToUnits: 400
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -113,13 +116,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: player2_0
+      name: player_run_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 650
-        height: 834
+        x: 26
+        y: 145
+        width: 25
+        height: 30
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +131,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d1d57c45a7207a3f0800000000000000
-      internalID: -889739676950766307
+      spriteID: 3cab8c9f7f639f2f0800000000000000
+      internalID: -938658608654533949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: player_run_1
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 0
+        width: 497
+        height: 495
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2290ac11adeb66c0800000000000000
+      internalID: -4148961355465977301
       vertices: []
       indices: 
       edges: []
@@ -148,7 +173,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      player2_0: -889739676950766307
+      player_run_0: -938658608654533949
+      player_run_1: -4148961355465977301
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

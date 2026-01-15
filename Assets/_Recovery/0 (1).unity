@@ -811,9 +811,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf58da58a1fbfde408231068a008926e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
-  data: {fileID: 0}
+  data: {fileID: 11400000, guid: 32455bc74ced1c94e9ebd38555c333ad, type: 2}
   firePoint: {fileID: 330520150}
-  owner: {fileID: 751507747}
+  owner: {fileID: 0}
   ownerTag: Player
 --- !u!1 &790279485
 GameObject:
