@@ -18,4 +18,7 @@ public class WeaponData : ScriptableObject
     public int burstCount = 1;            // バースト発射の弾丸数
     public float burstInterval = 0.06f;   // バースト内の弾丸間隔（秒）
 
+    [Header("SFX")]
+    public AudioClip fireSfx;             // 発射音
+    [Range(0f, 1f)] public float fireSfxVolume = 0.5f; // 発射音の音量 
 }

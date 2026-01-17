@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using System;
 
 public class Weapon : MonoBehaviour
 {
@@ -7,6 +8,9 @@ public class Weapon : MonoBehaviour
     public Transform firePoint;
     public Transform owner;          // 追加：弾が自分に当たらないように
     public string ownerTag = "Player";
+    public AudioSource audioSource;
+    public event Action Fired;
+    public PlayerVisual visual;
 
     float nextFireTime;
     Coroutine burstRoutine;
@@ -53,6 +57,17 @@ public class Weapon : MonoBehaviour
     void FireOnce(Vector3 targetWorldPos)
     {
 
+        // 発射イベント通知
+        Fired?.Invoke();
+
+        if (visual != null) visual.OnFired();
+
+        // 発射音再生
+        if (audioSource != null && data.fireSfx != null)
+        {
+            audioSource.PlayOneShot(data.fireSfx, data.fireSfxVolume);
+        }
+
         // 狙う方向を計算
         Vector2 baseDir = ((Vector2)targetWorldPos - (Vector2)firePoint.position).normalized;
         if (baseDir.sqrMagnitude < 0.0001f) baseDir = Vector2.up;
@@ -63,15 +78,20 @@ public class Weapon : MonoBehaviour
         // 弾丸発射ループ
         for (int i = 0; i < pellets; i++)
         {
+            // 拡散角度をランダムに決定
             float half = data.spreadAngleDeg * 0.5f;
-            float angle = (pellets == 1) ? 0f : Random.Range(-half, half);
+            float angle = (pellets == 1) ? 0f : UnityEngine.Random.Range(-half, half);
             Vector2 dir = Rotate(baseDir, angle);
+
+            // 弾丸の向きは進行方向に合わせる
+            float z = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+            Quaternion rot = Quaternion.Euler(0f, 0f, z);
 
             // 弾丸生成
             GameObject go = Instantiate(
                 data.projectilePrefab.gameObject,
                 firePoint.position,
-                Quaternion.identity
+                rot
             );
 
             // 初期化

@@ -11,7 +11,7 @@ public class PlayerWeaponController : MonoBehaviour
     {
 
         // マウス左クリックで発射
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        if (Mouse.current.leftButton.wasReleasedThisFrame)
         {
             var cam = Camera.main;
             Vector3 world = cam.ScreenToWorldPoint(Mouse.current.position.value);
