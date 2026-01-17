@@ -197,7 +197,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6136935524897755452, guid: e945940e2c57b584cbdb294b538c9332, type: 3}
       propertyPath: m_Name
-      value: Enemy4
+      value: Enemy (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -420,7 +420,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6136935524897755452, guid: e945940e2c57b584cbdb294b538c9332, type: 3}
       propertyPath: m_Name
-      value: Enemy5
+      value: Enemy (4)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -606,7 +606,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6136935524897755452, guid: e945940e2c57b584cbdb294b538c9332, type: 3}
       propertyPath: m_Name
-      value: Enemy6
+      value: Enemy (5)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -691,15 +691,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6136935524897755452, guid: e945940e2c57b584cbdb294b538c9332, type: 3}
       propertyPath: m_Name
-      value: Enemy2
+      value: Enemy (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6136935524897755452, guid: e945940e2c57b584cbdb294b538c9332, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1335308326}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e945940e2c57b584cbdb294b538c9332, type: 3}
 --- !u!1 &751507745
 GameObject:
@@ -1064,11 +1061,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 751507747}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &860393333 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6136935524897755452, guid: e945940e2c57b584cbdb294b538c9332, type: 3}
-  m_PrefabInstance: {fileID: 442769616}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &909500135
 GameObject:
   m_ObjectHideFlags: 0
@@ -1238,7 +1230,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6136935524897755452, guid: e945940e2c57b584cbdb294b538c9332, type: 3}
       propertyPath: m_Name
-      value: Enemy7
+      value: Enemy (6)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1554,32 +1546,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 904046405992309801, guid: e945940e2c57b584cbdb294b538c9332, type: 3}
   m_PrefabInstance: {fileID: 442769616}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1335308326
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 860393333}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 494b78b366915234aa164c8f54c8e437, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy
-  minSize: 0.1
-  maxSize: 0.5
-  healthBar: {fileID: 0}
-  baseHpAtMinSize: 2
-  baseHpAtMaxSize: 10
-  hpScaleByArea: 1
-  moveSpeed: 2.5
-  steering: 2
-  chaseWeight: 0.85
-  wanderWeight: 0.15
-  wanderChangeRate: 1
-  deathEffectPrefab: {fileID: 0}
-  hitEffectPrefab: {fileID: 0}
-  bounceEffectPrefab: {fileID: 0}
 --- !u!1 &1402604347
 GameObject:
   m_ObjectHideFlags: 0
@@ -1796,7 +1762,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6136935524897755452, guid: e945940e2c57b584cbdb294b538c9332, type: 3}
       propertyPath: m_Name
-      value: Enemy8
+      value: Enemy (7)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1921,7 +1887,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6136935524897755452, guid: e945940e2c57b584cbdb294b538c9332, type: 3}
       propertyPath: m_Name
-      value: Enemy3
+      value: Enemy (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2075,7 +2041,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1857452537}
   m_Layer: 0
-  m_Name: Obstacles
+  m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2426,7 +2392,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6136935524897755452, guid: e945940e2c57b584cbdb294b538c9332, type: 3}
       propertyPath: m_Name
-      value: Enemy1
+      value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

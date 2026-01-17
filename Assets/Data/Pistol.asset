@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 692ab067bd70d7545bf16bfb4e144f7d, type: 3}
   m_Name: Pistol
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
-  projectilePrefab: {fileID: 0}
+  projectilePrefab: {fileID: 8806005060692876460, guid: d5c920b9f20a01f448622fb3a0b32650, type: 3}
   projectileSpeed: 12
   damage: 1
   projectileLifeTime: 3
@@ -21,3 +21,5 @@ MonoBehaviour:
   spreadAngleDeg: 0
   burstCount: 1
   burstInterval: 0.06
+  fireSfx: {fileID: 8300000, guid: 03b2562ba9105b448b8bacd44c708e9c, type: 3}
+  fireSfxVolume: 0.2

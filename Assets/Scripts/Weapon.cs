@@ -102,7 +102,7 @@ public class Weapon : MonoBehaviour
                 return;
             }
 
-            p.Init(dir, data.projectileSpeed, owner, ownerTag, data.projectileLifeTime);
+            p.Init(dir, data.projectileSpeed, data.damage, owner, ownerTag, data.projectileLifeTime);
         }
     }
 
