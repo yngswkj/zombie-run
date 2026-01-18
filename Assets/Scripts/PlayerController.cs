@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using UnityEngine.SceneManagement;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerController : MonoBehaviour
 {
@@ -25,26 +26,26 @@ public class PlayerController : MonoBehaviour
     private Label scoreText;
     private Button restartButton;
     private Label highScoreText;
+    private Label killText;
 
     // エフェクト関連変数
     public GameObject explosionEffect;
 
     Rigidbody2D rb;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
 
         // UI要素の取得
         scoreText = uiDocument.rootVisualElement.Q<Label>("ScoreLabel");
+        killText = uiDocument.rootVisualElement.Q<Label>("KillLabel");
         highScoreText = uiDocument.rootVisualElement.Q<Label>("HighScoreLabel");
 
         // ハイスコアの表示
-        int highScore = PlayerPrefs.GetInt("highScore", 0);
         if (highScoreText != null)
         {
-            highScoreText.text = "ハイスコア: " + highScore;
+            highScoreText.text = "ハイスコア: " + ScoreManager.Instance.HighScore.ToString();
         }
 
         restartButton = uiDocument.rootVisualElement.Q<Button>("RestartButton");
@@ -62,14 +63,9 @@ public class PlayerController : MonoBehaviour
     // スコア更新処理  
     void UpdateScore()
     {
-        // 経過時間を計算
-        elapsedTime += Time.deltaTime;
-
-        // 経過時間にスコア乗数をかけてスコア算出
-        score = Mathf.FloorToInt(elapsedTime * scoreMutiplier);
-
         // UIにスコア表示
-        scoreText.text = "スコア: " + score;
+        scoreText.text = "スコア: " + ScoreManager.Instance.Score.ToString();
+        killText.text = "キル数: " + ScoreManager.Instance.KillCount.ToString();
     }
 
     // プレイヤー移動処理
@@ -146,6 +142,7 @@ public class PlayerController : MonoBehaviour
 
     void ReloadScene()
     {
+        ScoreManager.Instance.ResetRun();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

@@ -26,12 +26,24 @@ public class Enemy : MonoBehaviour, IDamageable
     public GameObject hitEffectPrefab;
     public GameObject bounceEffectPrefab;
 
+    [SerializeField] float dieAnimSeconds = 0.35f;
+    Animator anim;
+    Collider2D col;
     Rigidbody2D rb;
     Transform player;
 
+    bool isDead;
     float maxHp;
     float hp;
     Vector2 wanderDir;
+    EnemyFlash flash;
+
+    void Awake()
+    {
+        flash = GetComponentInChildren<EnemyFlash>();
+        anim = GetComponentInChildren<Animator>();
+        col = GetComponentInChildren<Collider2D>();
+    }
 
     void Start()
     {
@@ -74,6 +86,7 @@ public class Enemy : MonoBehaviour, IDamageable
 
     void FixedUpdate()
     {
+        if (isDead) return;
         if (player == null) return;
 
         // ふらつき方向を少しずつ変える
@@ -99,32 +112,50 @@ public class Enemy : MonoBehaviour, IDamageable
 
     public void TakeDamage(float amount)
     {
+        if (isDead) return;
+
         hp -= amount;
 
-        if (healthBar != null)
-        {
-            healthBar.SetNormalized(hp / maxHp);
-        }
-
-        // ヒットエフェクト
-        if (hitEffectPrefab != null)
-        {
-            Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
-        }
-
-        if (hp <= 0f)
+        // 死亡判定
+        if (hp < 0f)
         {
             Die();
+            return;
         }
+
+        // 生きているときはヒット演出
+        if (anim) anim.SetTrigger("Hit");
+        if (flash != null) flash.PlayHitFlash(1f);
+
+        if (healthBar != null) healthBar.SetNormalized(hp / maxHp);
+        if (hitEffectPrefab != null) Instantiate(hitEffectPrefab, transform.position, Quaternion.identity);
     }
 
     void Die()
     {
+        if (isDead) return;
+        isDead = true;
+
+        // 物理と当たりを無効化
+        if (anim) anim.ResetTrigger("Hit");
+        if (col) col.enabled = false;
+        if (rb) rb.linearVelocity = Vector2.zero;
+
+        // 死亡アニメーション再生
+        if (anim) anim.SetTrigger("Die");
+
+        // スコア加算
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance.OnEnemyKilled(maxHp);
+        }
+
+        // 死亡エフェクト
         if (deathEffectPrefab != null)
         {
             Instantiate(deathEffectPrefab, transform.position, Quaternion.identity);
         }
-        Destroy(gameObject);
+        Destroy(gameObject, dieAnimSeconds);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
