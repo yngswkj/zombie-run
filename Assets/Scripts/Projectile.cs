@@ -26,6 +26,7 @@ public class Projectile : MonoBehaviour
     {
         //  プレイヤー配下（PlayerBody等）に当たったら無視
         if (owner != null && other.transform.IsChildOf(owner)) return;
+        if (other.isTrigger) return;  // ★Triggerは無視
 
         // ダメージ処理
         var dmg = other.GetComponentInParent<IDamageable>();

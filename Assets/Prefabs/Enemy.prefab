@@ -219,8 +219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyFlash
   sr: {fileID: 0}
-  flashIn: 0.02
-  flashOut: 0.08
+  flashSpeed: 5
 --- !u!1 &5153349708498595185
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,7 +357,7 @@ GameObject:
   - component: {fileID: -8183601478650683433}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -486,6 +485,7 @@ MonoBehaviour:
   deathEffectPrefab: {fileID: 0}
   hitEffectPrefab: {fileID: 0}
   bounceEffectPrefab: {fileID: 3665589596107653850, guid: 27707183cd73b734f88cef9c9108c28b, type: 3}
+  dieAnimSeconds: 0.35
 --- !u!1 &8182966640084319488
 GameObject:
   m_ObjectHideFlags: 0
