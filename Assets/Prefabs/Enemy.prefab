@@ -355,6 +355,7 @@ GameObject:
   - component: {fileID: 1674664094675347069}
   - component: {fileID: 5518642274832879720}
   - component: {fileID: -8183601478650683433}
+  - component: {fileID: 7620512363272256852}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -486,6 +487,21 @@ MonoBehaviour:
   hitEffectPrefab: {fileID: 0}
   bounceEffectPrefab: {fileID: 3665589596107653850, guid: 27707183cd73b734f88cef9c9108c28b, type: 3}
   dieAnimSeconds: 0.35
+--- !u!114 &7620512363272256852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6136935524897755452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 32ccd4435d0f403469ff9aae1a4a0f6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyContactDamage
+  damageAtMinSize: 5
+  damageAtMaxSize: 20
+  damageInterval: 0.4
 --- !u!1 &8182966640084319488
 GameObject:
   m_ObjectHideFlags: 0

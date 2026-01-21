@@ -9,15 +9,11 @@ public class PlayerController : MonoBehaviour
     // プレイヤーの速度関連変数
     public float thrustForce = 1f;
     public float maxSpeed = 5f;
-    public GameObject runEffectRight;
-    public GameObject runEffectLeft;
-    private bool isFacingRight = true;
     public float moveSpeed = 5f;
     public float accel = 30f;
     public float deadZone = 0.05f;
 
     // スコア関連変数
-    private float elapsedTime = 0f;
     private float score = 0f;
     public float scoreMutiplier = 10f;
 
@@ -28,6 +24,11 @@ public class PlayerController : MonoBehaviour
     private Label highScoreText;
     private Label killText;
 
+    PlayerHealth health;
+    bool deathHandeld = false;
+    Collider2D col;
+    SpriteRenderer sr;
+
     // エフェクト関連変数
     public GameObject explosionEffect;
 
@@ -36,6 +37,10 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+
+        health = GetComponent<PlayerHealth>();
+        col = GetComponent<Collider2D>();
+        sr = GetComponentInChildren<SpriteRenderer>();
 
         // UI要素の取得
         scoreText = uiDocument.rootVisualElement.Q<Label>("ScoreLabel");
@@ -53,10 +58,16 @@ public class PlayerController : MonoBehaviour
         restartButton.clicked += ReloadScene;
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         UpdateScore();
+
+        if (health != null && health.IsDead)
+        {
+            if (!deathHandeld) HandleDeathOnce();
+            return;
+        }
+
         MovePlayer();
     }
 
@@ -96,22 +107,6 @@ public class PlayerController : MonoBehaviour
             targetVel,
             accel * Time.fixedDeltaTime
         );
-
-        // 走行エフェクト（移動ベクトルで左右判定）
-        Vector2 v = rb.linearVelocity;
-
-        if (Mathf.Abs(v.x) > deadZone)
-            isFacingRight = v.x > 0f;
-
-        bool isMoving = v.magnitude > deadZone;
-
-        // エフェクトの表示切替
-        if (runEffectRight) runEffectRight.SetActive(!isFacingRight && isMoving);
-        if (runEffectLeft) runEffectLeft.SetActive(isFacingRight && isMoving);
-
-        // 推していない時はエフェクトを非表示
-        if (runEffectRight) runEffectRight.SetActive(false);
-        if (runEffectLeft) runEffectLeft.SetActive(false);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -132,12 +127,19 @@ public class PlayerController : MonoBehaviour
             {
                 highScoreText.text = "ハイスコア: " + currentScore;
             }
-            Debug.Log("New High Score: " + currentScore);
         }
+    }
 
-        Instantiate(explosionEffect, transform.position, transform.rotation);
-        restartButton.style.display = DisplayStyle.Flex;
-        Destroy(gameObject);
+    void HandleDeathOnce()
+    {
+        deathHandeld = true;
+
+        if (rb) rb.linearVelocity = Vector2.zero;
+        if (col) col.enabled = false;  // 衝突無効化
+        if (sr) sr.enabled = false;    // 見た目だけ消す
+
+        if (explosionEffect) Instantiate(explosionEffect, transform.position, transform.rotation);
+        if (restartButton != null) restartButton.style.display = DisplayStyle.Flex;
     }
 
     void ReloadScene()
